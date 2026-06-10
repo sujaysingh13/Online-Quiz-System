@@ -21,5 +21,6 @@ from. import views
 urlpatterns = [
     path('', views.quizSystem_index, name='quizSystem_index'),
     path('signup/', views.user_signup, name='user_signup'),
+    path('login/', views.user_login, name='user_login'),
     path('save_user/', views.save_user, name='save_user'),
 ]

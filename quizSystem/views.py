@@ -8,6 +8,9 @@ def quizSystem_index(request):
 def user_signup(request):
     return render(request, 'quizSystem/signup.html')
 
+def user_login(request):
+    return render(request, 'quizSystem/login.html')
+
 def save_user(request):
     # receive all data
     fullname = request.POST.get('fullname')
