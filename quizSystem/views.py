@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib import messages
 from .models import User
 
 # Create your views here.
@@ -11,14 +12,23 @@ def user_signup(request):
 def user_login(request):
     return render(request, 'quizSystem/login.html')
 
+def dashboard(request):
+    return render(request, 'quizSystem/dashboard.html')
+
 def save_user(request):
-    # receive all data
-    fullname = request.POST.get('fullname')
-    email = request.POST.get('email')
-    username = request.POST.get('username')
-    password = request.POST.get('password')
+    if request.method == "POST":
 
-    # send this data to database
-    User.objects.create(fullname=fullname, email=email, username=username, password=password)
+        # receive all data
+        fullname = request.POST.get('fullname')
+        email = request.POST.get('email')
+        username = request.POST.get('username')
+        password = request.POST.get('password')
 
-    return render(request, 'quizSystem/signup.html', {'message': "Registration Success"})
+        # send this data to database
+        User.objects.create(fullname=fullname, email=email, username=username, password=password)
+
+        messages.success(request, "Your account has been created successfully!")
+
+        return redirect('user_login')
+
+    return render(request, 'quizSystem/signup.html')
