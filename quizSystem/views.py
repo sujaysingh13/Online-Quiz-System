@@ -15,6 +15,18 @@ def user_login(request):
 def dashboard(request):
     return render(request, 'quizSystem/dashboard.html')
 
+def quiz_page(request):
+    return render(request, 'quizSystem/quiz.html')
+
+def digital_logic(request):
+    return render(request, 'quizSystem/digital_logic.html')
+
+def operating_system(request):
+    return render(request, 'quizSystem/operating_system.html')
+
+def dbms(request):
+    return render(request, 'quizSystem/dbms.html')
+
 def save_user(request):
     if request.method == "POST":
 

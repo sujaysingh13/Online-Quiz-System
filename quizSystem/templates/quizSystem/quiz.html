@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Quiz</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body{
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            min-height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+        }
+
+        .container{
+            background:white;
+            padding:40px;
+            border-radius:15px;
+            width:400px;
+            text-align:center;
+            box-shadow:0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        h1{
+            margin-bottom:30px;
+            color:#333;
+        }
+
+        .quiz-btn{
+            display:block;
+            width:100%;
+            padding:15px;
+            margin:15px 0;
+            text-decoration:none;
+            background:#4f46e5;
+            color:white;
+            border-radius:10px;
+            font-size:18px;
+            font-weight:bold;
+            transition:0.3s;
+        }
+
+        .quiz-btn:hover{
+            background:#3730a3;
+            transform:translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Select a Test</h1>
+
+        <a href="{% url 'digital_logic' %}" class="quiz-btn">
+            Digital Logic Test
+        </a>
+
+        <a href="{% url 'operating_system' %}" class="quiz-btn">
+            Operating System Test
+        </a>
+
+        <a href="{% url 'dbms' %}" class="quiz-btn">
+            DBMS Test
+        </a>
+    </div>
+
+</body>
+</html>

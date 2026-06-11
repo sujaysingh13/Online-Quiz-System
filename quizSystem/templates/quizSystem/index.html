@@ -93,8 +93,8 @@
         <h1>QuizMaster</h1>
 
         <ul>
-            <li><a href="login/">Log in</a></li>
-            <li><a href="signup/">Sign up</a></li>
+            <li><a href="{% url 'user_login' %}">Log in</a></li>
+            <li><a href="{% url 'user_signup' %}">Sign up</a></li>
         </ul>
     </nav>
 
@@ -106,7 +106,7 @@
             and track your performance in real time.
         </p>
 
-        <a href="quiz.html" class="btn">Start Quiz</a>
+        <a href="{% url 'quiz_page' %}" class="btn">Start Quiz</a>
     </section>
 
     <footer>
