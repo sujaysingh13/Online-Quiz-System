@@ -4,12 +4,45 @@ from .models import User
 
 # Create your views here.
 def quizSystem_index(request):
-    return render(request, 'quizSystem/index.html')
+    fullname = request.session.get('fullname')
+
+    return render(
+        request,
+        'quizSystem/index.html',
+        {
+            'fullname': fullname
+        }
+    )
+
+def logout_user(request):
+
+    request.session.flush()
+
+    return redirect('quizSystem_index')
 
 def user_signup(request):
     return render(request, 'quizSystem/signup.html')
 
 def user_login(request):
+    if request.method == "POST":
+
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+
+        try:
+            user = User.objects.get(
+                username=username,
+                password=password
+            )
+
+            request.session['username'] = user.username
+            request.session['fullname'] = user.fullname
+
+            return redirect('quizSystem_index')
+
+        except User.DoesNotExist:
+            messages.error(request, "Invalid username or password")
+
     return render(request, 'quizSystem/login.html')
 
 def dashboard(request):

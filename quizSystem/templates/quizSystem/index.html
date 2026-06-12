@@ -1,100 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Online Quiz System</title>
 
     <style>
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
             font-family: Arial, sans-serif;
         }
 
-        body{
-            background:#f4f6f9;
+        body {
+            background: #f4f6f9;
         }
 
-        nav{
-            background:#2563eb;
-            color:white;
-            padding:15px 50px;
-            display:flex;
-            justify-content:space-between;
-            align-items:center;
+        nav {
+            background: #2563eb;
+            color: white;
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        nav h1{
-            font-size:28px;
+        nav h1 {
+            font-size: 28px;
         }
 
-        nav ul{
-            list-style:none;
-            display:flex;
-            gap:20px;
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
         }
 
-        nav ul li a{
-            color:white;
-            text-decoration:none;
-            font-weight:bold;
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
         }
 
-        .hero{
-            height:85vh;
-            display:flex;
-            flex-direction:column;
-            justify-content:center;
-            align-items:center;
-            text-align:center;
-            padding:20px;
+        .hero {
+            height: 85vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
         }
 
-        .hero h2{
-            font-size:50px;
-            color:#1f2937;
-            margin-bottom:20px;
+        .hero h2 {
+            font-size: 50px;
+            color: #1f2937;
+            margin-bottom: 20px;
         }
 
-        .hero p{
-            font-size:20px;
-            color:#6b7280;
-            max-width:700px;
-            margin-bottom:30px;
+        .hero p {
+            font-size: 20px;
+            color: #6b7280;
+            max-width: 700px;
+            margin-bottom: 30px;
         }
 
-        .btn{
-            padding:15px 35px;
-            background:#2563eb;
-            color:white;
-            text-decoration:none;
-            border-radius:8px;
-            font-size:18px;
-            font-weight:bold;
+        .btn {
+            padding: 15px 35px;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
         }
 
-        .btn:hover{
-            background:#1d4ed8;
+        .btn:hover {
+            background: #1d4ed8;
         }
 
-        footer{
-            background:#1f2937;
-            color:white;
-            text-align:center;
-            padding:20px;
+        footer {
+            background: #1f2937;
+            color: white;
+            text-align: center;
+            padding: 20px;
         }
     </style>
 </head>
+
 <body>
 
     <nav>
         <h1>QuizMaster</h1>
 
         <ul>
+
+            {% if fullname %}
+
+            <li>Welcome, {{ fullname }}</li>
+            <li><a href="{% url 'logout_user' %}">Logout</a></li>
+
+            {% else %}
+
             <li><a href="{% url 'user_login' %}">Log in</a></li>
             <li><a href="{% url 'user_signup' %}">Sign up</a></li>
+
+            {% endif %}
+
         </ul>
     </nav>
 
@@ -114,4 +127,5 @@
     </footer>
 
 </body>
+
 </html>

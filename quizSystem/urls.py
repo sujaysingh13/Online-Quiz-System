@@ -22,6 +22,7 @@ urlpatterns = [
     path('', views.quizSystem_index, name='quizSystem_index'),
     path('signup/', views.user_signup, name='user_signup'),
     path('login/', views.user_login, name='user_login'),
+    path('logout/', views.logout_user, name='logout_user'),
     path('dashboard/', views.dashboard, name='dashboard'),
     path('quiz/', views.quiz_page, name='quiz_page'),
     path('digital_logic/', views.digital_logic, name='digital_logic'),
