@@ -1,0 +1,97 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f4f6f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    background: white;
+    padding: 40px;
+    width: 400px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    text-align: center;
+    color: #2563eb;
+    margin-bottom: 25px;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+input:focus {
+    outline: none;
+    border-color: #2563eb;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    background: #1d4ed8;
+}
+
+.signup-link {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.signup-link a {
+    text-decoration: none;
+    color: #2563eb;
+    font-weight: bold;
+}
+
+.success {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    text-align: center;
+}
