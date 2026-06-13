@@ -17,15 +17,15 @@
 
         <ul>
 
-            {% if fullname %}
+            {% if user.is_authenticated %}
 
-            <li><a href="{% url 'dashboard' %}">Welcome, {{ fullname }}</a></li>
+            <li>Welcome {{ user.first_name }}</li>
+            <li><a href="{% url 'logout_user' %}">Logout</a></li>
 
             {% else %}
 
-            <li><a href="{% url 'user_login' %}">Log in</a></li>
-            <li><a href="{% url 'user_signup' %}">Sign up</a></li>
-            <li><a href="{% url 'admin_app_index' %}">Admin Log in</a></li>
+            <li><a href="{% url 'user_login' %}">Login</a></li>
+            <li><a href="{% url 'user_signup' %}">Sign Up</a></li>
 
             {% endif %}
 

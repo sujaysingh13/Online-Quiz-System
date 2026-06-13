@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .models import User
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
 def quizSystem_index(request):
@@ -14,36 +15,35 @@ def quizSystem_index(request):
         }
     )
 
-def logout_user(request):
-
-    request.session.flush()
-
-    return redirect('quizSystem_index')
-
 def user_signup(request):
     return render(request, 'quizSystem/signup.html')
 
 def user_login(request):
+
     if request.method == "POST":
 
         username = request.POST.get("username")
         password = request.POST.get("password")
 
-        try:
-            user = User.objects.get(
-                username=username,
-                password=password
-            )
+        user = authenticate(
+            request,
+            username=username,
+            password=password
+        )
 
-            request.session['username'] = user.username
-            request.session['fullname'] = user.fullname
-
+        if user is not None:
+            login(request, user)
             return redirect('quizSystem_index')
 
-        except User.DoesNotExist:
-            messages.error(request, "Invalid username or password")
+        messages.error(request, "Invalid username or password")
 
     return render(request, 'quizSystem/login.html')
+
+
+def logout_user(request):
+    logout(request)
+    return redirect('quizSystem_index')
+
 
 def dashboard(request):
 
@@ -90,16 +90,24 @@ def dbms(request):
     return render(request, 'quizSystem/dbms.html')
 
 def save_user(request):
+
     if request.method == "POST":
 
-        # receive all data
         fullname = request.POST.get('fullname')
         email = request.POST.get('email')
         username = request.POST.get('username')
         password = request.POST.get('password')
 
-        # send this data to database
-        User.objects.create(fullname=fullname, email=email, username=username, password=password)
+        if User.objects.filter(username=username).exists():
+            messages.error(request, "Username already exists")
+            return redirect('user_signup')
+
+        User.objects.create_user(
+            first_name=fullname,
+            email=email,
+            username=username,
+            password=password
+        )
 
         messages.success(request, "Your account has been created successfully!")
 
