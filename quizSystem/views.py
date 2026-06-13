@@ -46,7 +46,36 @@ def user_login(request):
     return render(request, 'quizSystem/login.html')
 
 def dashboard(request):
-    return render(request, 'quizSystem/dashboard.html')
+
+    tests = [
+        {
+            "test_no": 1,
+            "subject": "Digital Logic",
+            "date": "12-06-2026",
+            "time": "10:30 AM",
+            "score": 12
+        },
+        {
+            "test_no": 2,
+            "subject": "Operating System",
+            "date": "12-06-2026",
+            "time": "11:45 AM",
+            "score": 14
+        },
+        {
+            "test_no": 3,
+            "subject": "DBMS",
+            "date": "12-06-2026",
+            "time": "02:15 PM",
+            "score": 13
+        }
+    ]
+
+    return render(
+        request,
+        'quizSystem/dashboard.html',
+        {'tests': tests}
+    )
 
 def quiz_page(request):
     return render(request, 'quizSystem/quiz.html')

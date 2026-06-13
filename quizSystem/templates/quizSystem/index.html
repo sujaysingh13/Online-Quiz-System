@@ -27,8 +27,10 @@
             align-items: center;
         }
 
-        nav h1 {
+        nav h1 a{
             font-size: 28px;
+            color: white;
+            text-decoration: none;
         }
 
         nav ul {
@@ -92,19 +94,19 @@
 <body>
 
     <nav>
-        <h1>QuizMaster</h1>
+        <h1><a href="{% url 'quizSystem_index' %}">QuizMaster</a></h1>
 
         <ul>
 
             {% if fullname %}
 
-            <li>Welcome, {{ fullname }}</li>
-            <li><a href="{% url 'logout_user' %}">Logout</a></li>
+            <li><a href="{% url 'dashboard' %}">Welcome, {{ fullname }}</a></li>
 
             {% else %}
 
             <li><a href="{% url 'user_login' %}">Log in</a></li>
             <li><a href="{% url 'user_signup' %}">Sign up</a></li>
+            <li><a href="{% url 'admin_app_index' %}">Admin Log in</a></li>
 
             {% endif %}
 

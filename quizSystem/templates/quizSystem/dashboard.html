@@ -39,6 +39,10 @@
             border-radius:5px;
         }
 
+        nav a:hover{
+            background:rgba(255,255,255,0.3);
+        }
+
         .container{
             width:90%;
             margin:40px auto;
@@ -58,41 +62,39 @@
             color:#666;
         }
 
-        .quiz-grid{
-            display:grid;
-            grid-template-columns:repeat(auto-fit, minmax(250px, 1fr));
-            gap:25px;
+        .table-container{
+            background:white;
+            border-radius:12px;
+            overflow:hidden;
+            box-shadow:0 4px 10px rgba(0,0,0,0.1);
         }
 
-        .quiz-card{
-            background:white;
-            padding:25px;
-            border-radius:12px;
-            box-shadow:0 4px 10px rgba(0,0,0,0.1);
+        table{
+            width:100%;
+            border-collapse:collapse;
+        }
+
+        th{
+            background:#2563eb;
+            color:white;
+            padding:15px;
             text-align:center;
         }
 
-        .quiz-card h3{
-            color:#2563eb;
-            margin-bottom:10px;
+        td{
+            padding:15px;
+            text-align:center;
+            border-bottom:1px solid #ddd;
         }
 
-        .quiz-card p{
-            color:#666;
-            margin-bottom:20px;
+        tr:hover{
+            background:#f8fafc;
         }
 
-        .btn{
-            display:inline-block;
-            text-decoration:none;
-            background:#2563eb;
-            color:white;
-            padding:10px 20px;
-            border-radius:6px;
-        }
-
-        .btn:hover{
-            background:#1d4ed8;
+        .no-data{
+            text-align:center;
+            padding:25px;
+            color:#777;
         }
     </style>
 </head>
@@ -100,41 +102,49 @@
 
     <nav>
         <h1>QuizMaster</h1>
-        <a href="#">Logout</a>
+        <a href="{% url 'logout_user' %}">Logout</a>
     </nav>
 
     <div class="container">
 
         <div class="welcome">
-            <h2>Welcome to Your Dashboard</h2>
-            <p>Select a quiz and test your knowledge.</p>
+            <h2>My Quiz History</h2>
+            <p>Track all your quiz attempts and scores.</p>
         </div>
 
-        <div class="quiz-grid">
+        <div class="table-container">
 
-            <div class="quiz-card">
-                <h3>General Knowledge</h3>
-                <p>10 Questions</p>
-                <a href="#" class="btn">Start Quiz</a>
-            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Test No.</th>
+                        <th>Subject Name</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Score</th>
+                    </tr>
+                </thead>
 
-            <div class="quiz-card">
-                <h3>Science</h3>
-                <p>15 Questions</p>
-                <a href="#" class="btn">Start Quiz</a>
-            </div>
+                <tbody>
 
-            <div class="quiz-card">
-                <h3>Computer Science</h3>
-                <p>20 Questions</p>
-                <a href="#" class="btn">Start Quiz</a>
-            </div>
+                    {% for test in tests %}
+                    <tr>
+                        <td>{{ test.test_no }}</td>
+                        <td>{{ test.subject }}</td>
+                        <td>{{ test.date }}</td>
+                        <td>{{ test.time }}</td>
+                        <td>{{ test.score }}/15</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="no-data">
+                            No quiz attempts yet.
+                        </td>
+                    </tr>
+                    {% endfor %}
 
-            <div class="quiz-card">
-                <h3>Mathematics</h3>
-                <p>12 Questions</p>
-                <a href="#" class="btn">Start Quiz</a>
-            </div>
+                </tbody>
+            </table>
 
         </div>
 
