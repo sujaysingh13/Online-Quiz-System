@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from .models import Test
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def quizSystem_index(request):
@@ -77,17 +79,21 @@ def dashboard(request):
         {'tests': tests}
     )
 
+@login_required
+def tests(request):
+
+    tests = Test.objects.filter(is_active=True)
+
+    return render(
+        request,
+        'quizSystem/tests.html',
+        {
+            'tests': tests
+        }
+    )
+
 def quiz_page(request):
     return render(request, 'quizSystem/quiz.html')
-
-def digital_logic(request):
-    return render(request, 'quizSystem/digital_logic.html')
-
-def operating_system(request):
-    return render(request, 'quizSystem/operating_system.html')
-
-def dbms(request):
-    return render(request, 'quizSystem/dbms.html')
 
 def save_user(request):
 

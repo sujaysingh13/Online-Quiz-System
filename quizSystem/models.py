@@ -5,6 +5,8 @@ from django.db import models
 
 class Test(models.Model):
 
+    title = models.CharField(max_length=200)
+
     subject = models.CharField(max_length=100)
 
     start_time = models.DateTimeField()
@@ -12,6 +14,8 @@ class Test(models.Model):
     end_time = models.DateTimeField()
 
     duration = models.IntegerField(help_text="Duration in minutes")
+
+    number_of_questions = models.IntegerField(default=15)
 
     total_marks = models.IntegerField(default=15)
 
@@ -53,4 +57,4 @@ class Question(models.Model):
     marks = models.IntegerField(default=1)
 
     def __str__(self):
-        return self.question
+        return f"{self.test.title} - {self.question[:50]}"

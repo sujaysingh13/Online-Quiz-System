@@ -25,8 +25,6 @@ urlpatterns = [
     path('logout/', views.logout_user, name='logout_user'),
     path('dashboard/', views.dashboard, name='dashboard'),
     path('quiz/', views.quiz_page, name='quiz_page'),
-    path('digital_logic/', views.digital_logic, name='digital_logic'),
-    path('operating_system/', views.operating_system, name='operating_system'),
-    path('dbms/', views.dbms, name='dbms'),
     path('save_user/', views.save_user, name='save_user'),
+    path('tests/', views.tests, name='tests'),
 ]
