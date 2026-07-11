@@ -30,7 +30,8 @@
                 <thead>
                     <tr>
                         <th>Test No.</th>
-                        <th>Subject Name</th>
+                        <th>Test Title</th>
+                        <th>Subject</th>
                         <th>Date</th>
                         <th>Time</th>
                         <th>Score</th>
@@ -44,6 +45,8 @@
                     <tr>
 
                         <td>{{ forloop.counter }}</td>
+
+                        <td>{{ result.test.title }}</td>
 
                         <td>{{ result.test.subject }}</td>
 
