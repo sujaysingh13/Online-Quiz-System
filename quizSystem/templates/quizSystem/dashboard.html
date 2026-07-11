@@ -2,12 +2,14 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - QuizMaster</title>
     <link rel="stylesheet" href="{% static 'quizSystem/css/dashboard.css' %}">
 </head>
+
 <body>
 
     <nav>
@@ -37,20 +39,34 @@
 
                 <tbody>
 
-                    {% for test in tests %}
+                    {% for result in results %}
+
                     <tr>
-                        <td>{{ test.test_no }}</td>
-                        <td>{{ test.subject }}</td>
-                        <td>{{ test.date }}</td>
-                        <td>{{ test.time }}</td>
-                        <td>{{ test.score }}/15</td>
+
+                        <td>{{ forloop.counter }}</td>
+
+                        <td>{{ result.test.subject }}</td>
+
+                        <td>{{ result.attempted_on|date:"d-m-Y" }}</td>
+
+                        <td>{{ result.attempted_on|time:"h:i A" }}</td>
+
+                        <td>{{ result.score }}/{{ result.total_marks }}</td>
+
                     </tr>
+
                     {% empty %}
+
                     <tr>
+
                         <td colspan="5" class="no-data">
+
                             No quiz attempts yet.
+
                         </td>
+
                     </tr>
+
                     {% endfor %}
 
                 </tbody>
@@ -61,4 +77,5 @@
     </div>
 
 </body>
+
 </html>

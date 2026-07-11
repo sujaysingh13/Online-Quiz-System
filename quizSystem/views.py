@@ -48,36 +48,19 @@ def logout_user(request):
     logout(request)
     return redirect('quizSystem_index')
 
+@login_required
 def dashboard(request):
 
-    tests = [
-        {
-            "test_no": 1,
-            "subject": "Digital Logic",
-            "date": "12-06-2026",
-            "time": "10:30 AM",
-            "score": 12
-        },
-        {
-            "test_no": 2,
-            "subject": "Operating System",
-            "date": "12-06-2026",
-            "time": "11:45 AM",
-            "score": 14
-        },
-        {
-            "test_no": 3,
-            "subject": "DBMS",
-            "date": "12-06-2026",
-            "time": "02:15 PM",
-            "score": 13
-        }
-    ]
+    results = Result.objects.filter(
+        student=request.user
+    ).order_by("-attempted_on")
 
     return render(
         request,
-        'quizSystem/dashboard.html',
-        {'tests': tests}
+        "quizSystem/dashboard.html",
+        {
+            "results": results
+        }
     )
 
 @login_required
@@ -151,9 +134,26 @@ def start_test(request, test_id):
 
                 correct_answers += 1
 
-        print("Score:", score)
+        Result.objects.create(
 
-        print("Correct:", correct_answers)
+            student=request.user,
+
+            test=test,
+
+            score=score,
+
+            total_marks=test.total_marks,
+
+            correct_answers=correct_answers
+
+        )
+
+        messages.success(
+            request,
+            f"You scored {score} out of {test.total_marks}."
+        )
+
+        return redirect("dashboard")
 
     return render(
         request,
