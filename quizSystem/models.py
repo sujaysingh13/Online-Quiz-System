@@ -1,7 +1,7 @@
-from django.db import models
-
 # Create your models here.
 from django.db import models
+from django.core.exceptions import ValidationError
+from django.contrib.auth.models import User
 
 class Test(models.Model):
 
@@ -23,8 +23,14 @@ class Test(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
 
+    def clean(self):
+        if self.end_time <= self.start_time:
+            raise ValidationError(
+                "End time must be after start time."
+            )
+
     def __str__(self):
-        return self.subject
+        return f"{self.title} ({self.subject})"
     
 
 class Question(models.Model):
@@ -58,3 +64,29 @@ class Question(models.Model):
 
     def __str__(self):
         return f"{self.test.title} - {self.question[:50]}"
+    
+
+class Result(models.Model):
+
+    student = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE
+    )
+
+    test = models.ForeignKey(
+        Test,
+        on_delete=models.CASCADE
+    )
+
+    score = models.IntegerField()
+
+    total_marks = models.IntegerField()
+
+    correct_answers = models.IntegerField()
+
+    attempted_on = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    def __str__(self):
+        return f"{self.student.username} - {self.test.title}"

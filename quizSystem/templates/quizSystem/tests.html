@@ -1,11 +1,205 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Available Tests</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f6f9;
+        }
+
+        nav {
+            background: #2563eb;
+            color: white;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav h1 {
+            font-size: 28px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: white;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 16px;
+            border-radius: 6px;
+        }
+
+        .container {
+            width: 90%;
+            margin: 40px auto;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th {
+            background: #2563eb;
+            color: white;
+            padding: 15px;
+        }
+
+        td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background: #f9f9f9;
+        }
+
+        .available {
+            color: green;
+            font-weight: bold;
+        }
+
+        .not-started {
+            color: orange;
+            font-weight: bold;
+        }
+
+        .expired {
+            color: red;
+            font-weight: bold;
+        }
+
+        .btn {
+            background: #2563eb;
+            color: white;
+            padding: 8px 18px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .disabled {
+            color: #888;
+            font-weight: bold;
+        }
+    </style>
+
 </head>
+
 <body>
-    <h1>Tests Page</h1>
+
+    <nav>
+
+        <h1>QuizMaster</h1>
+
+        <a href="{% url 'quizSystem_index' %}">
+            Home
+        </a>
+
+    </nav>
+
+    <div class="container">
+
+        <h2>Available Tests</h2>
+
+        <table>
+
+            <tr>
+
+                <th>Title</th>
+                <th>Subject</th>
+                <th>Duration</th>
+                <th>Questions</th>
+                <th>Total Marks</th>
+                <th>Status</th>
+                <th>Action</th>
+
+            </tr>
+
+            {% for test in tests %}
+
+            <tr>
+
+                <td>{{ test.title }}</td>
+
+                <td>{{ test.subject }}</td>
+
+                <td>{{ test.duration }} Minutes</td>
+
+                <td>{{ test.number_of_questions }}</td>
+
+                <td>{{ test.total_marks }}</td>
+
+                <td>
+
+                    {% if test.status == "Available" %}
+
+                    <span class="available">
+                        Available
+                    </span>
+
+                    {% elif test.status == "Not Started" %}
+
+                    <span class="not-started">
+                        Not Started
+                    </span>
+
+                    {% else %}
+
+                    <span class="expired">
+                        Expired
+                    </span>
+
+                    {% endif %}
+
+                </td>
+
+                <td>
+
+                    {% if test.status == "Available" %}
+
+                    <a href="{% url 'start_test' test.id %}" class="btn">
+                        Start Test
+                    </a>
+
+                    {% else %}
+
+                    <span class="disabled">
+                        ---
+                    </span>
+
+                    {% endif %}
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </table>
+
+    </div>
+
 </body>
+
 </html>

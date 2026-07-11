@@ -2,8 +2,11 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
-from .models import Test
+from .models import Test, Question, Result
+from django.utils import timezone
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404
+import random
 
 # Create your views here.
 def quizSystem_index(request):
@@ -41,11 +44,9 @@ def user_login(request):
 
     return render(request, 'quizSystem/login.html')
 
-
 def logout_user(request):
     logout(request)
     return redirect('quizSystem_index')
-
 
 def dashboard(request):
 
@@ -82,15 +83,88 @@ def dashboard(request):
 @login_required
 def tests(request):
 
-    tests = Test.objects.filter(is_active=True)
+    all_tests = Test.objects.filter(is_active=True)
+
+    now = timezone.now()
+
+    for test in all_tests:
+
+        if now < test.start_time:
+            test.status = "Not Started"
+
+        elif now > test.end_time:
+            test.status = "Expired"
+
+        else:
+            test.status = "Available"
 
     return render(
         request,
-        'quizSystem/tests.html',
+        "quizSystem/tests.html",
         {
-            'tests': tests
+            "tests": all_tests
         }
     )
+
+
+@login_required
+def start_test(request, test_id):
+
+    test = get_object_or_404(Test, id=test_id)
+
+    already_attempted = Result.objects.filter(
+        student=request.user,
+        test=test
+    ).exists()
+
+    if already_attempted:
+
+        messages.error(
+            request,
+            "You have already attempted this test."
+        )
+
+        return redirect("tests")
+
+    questions = list(
+        Question.objects.filter(test=test)
+    )
+
+    random.shuffle(questions)
+
+    questions = questions[:test.number_of_questions]
+
+    if request.method == "POST":
+
+        score = 0
+        correct_answers = 0
+
+        for question in questions:
+
+            selected_answer = request.POST.get(
+                f"question_{question.id}"
+            )
+
+            if selected_answer == question.correct_answer:
+
+                score += question.marks
+
+                correct_answers += 1
+
+        print("Score:", score)
+
+        print("Correct:", correct_answers)
+
+    return render(
+        request,
+        "quizSystem/quiz.html",
+        {
+            "test": test,
+            "questions": questions
+        }
+    )
+
+
 
 def quiz_page(request):
     return render(request, 'quizSystem/quiz.html')
