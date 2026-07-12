@@ -161,7 +161,7 @@
 
         </div>
 
-        <form method="POST">
+        <form method="POST" id="quizForm">
 
             {% csrf_token %}
 
@@ -217,7 +217,7 @@
 
             <div class="submit-container">
 
-                <button class="submit-btn" type="submit">
+                <button id="submitBtn" class="submit-btn" type="submit">
 
                     Submit Test
 
@@ -249,12 +249,21 @@
 
                 clearInterval(interval);
 
-                return;
+                alert("Time is over! Your test will be submitted automatically.");
 
+                const submitBtn = document.getElementById("submitBtn");
+
+                submitBtn.disabled = true;
+
+                submitBtn.innerText = "Submitting...";
+
+                document.getElementById("quizForm").submit();
+
+                return;
             }
 
             const minutes = Math.floor(
-                difference / 1000 / 60
+                difference / 1000 / 60  
             );
 
             const seconds = Math.floor(
@@ -274,6 +283,17 @@
             updateTimer,
             1000
         );
+
+        document.getElementById("quizForm").addEventListener("submit", function () {
+
+            const submitBtn = document.getElementById("submitBtn");
+
+            submitBtn.disabled = true;
+
+            submitBtn.innerText = "Submitting...";
+
+
+        });
 
     </script>
 

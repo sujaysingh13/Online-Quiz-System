@@ -30,7 +30,7 @@ class Test(models.Model):
             )
 
     def __str__(self):
-        return f"{self.title} ({self.subject})"
+        return f"{self.subject} - {self.title}"
     
 
 class Question(models.Model):
@@ -63,7 +63,7 @@ class Question(models.Model):
     marks = models.IntegerField(default=1)
 
     def __str__(self):
-        return f"{self.test.title} - {self.question[:50]}"
+        return f"{self.test.subject} - {self.test.title} - {self.question[:50]}"
     
 
 class Result(models.Model):
@@ -89,4 +89,4 @@ class Result(models.Model):
     )
 
     def __str__(self):
-        return f"{self.student.username} - {self.test.title}"
+        return f"{self.student.username} - {self.test.subject} - {self.test.title}"

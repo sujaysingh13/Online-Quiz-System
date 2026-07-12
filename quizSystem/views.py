@@ -109,15 +109,34 @@ def start_test(request, test_id):
 
         return redirect("tests")
 
-    questions = list(
-        Question.objects.filter(test=test)
-    )
+    if request.method == "GET":
 
-    random.shuffle(questions)
+        questions = list(
+            Question.objects.filter(test=test)
+        )
 
-    questions = questions[:test.number_of_questions]
+        random.shuffle(questions)
+
+        questions = questions[:test.number_of_questions]
+
+        # Save question IDs in session
+        request.session["question_ids"] = [
+            question.id for question in questions
+        ]
 
     if request.method == "POST":
+
+        question_ids = request.session.get(
+            "question_ids",
+            []
+        )
+
+        questions = []
+
+        for question_id in question_ids:
+            questions.append(
+                Question.objects.get(id=question_id)
+            )
 
         score = 0
         correct_answers = 0
@@ -152,6 +171,8 @@ def start_test(request, test_id):
             request,
             f"You scored {score} out of {test.total_marks}."
         )
+
+        request.session.pop("question_ids", None)
 
         return redirect("dashboard")
 

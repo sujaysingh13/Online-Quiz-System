@@ -20,7 +20,18 @@
             {% if user.is_authenticated %}
 
             <li>Welcome {{ user.first_name }}</li>
-            <li><a href="{% url 'logout_user' %}">Logout</a></li>
+
+            <li>
+                <a href="{% url 'dashboard' %}">
+                    Dashboard
+                </a>
+            </li>
+
+            <li>
+                <a href="{% url 'logout_user' %}">
+                    Logout
+                </a>
+            </li>
 
             {% else %}
 
