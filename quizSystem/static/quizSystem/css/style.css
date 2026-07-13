@@ -30,10 +30,29 @@ nav ul {
     gap: 20px;
 }
 
-nav ul li a {
-    color: white;
+nav ul li a{
     text-decoration: none;
-    font-weight: bold;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 6px;
+    background: rgba(255,255,255,0.15);
+    transition: 0.3s;
+}
+
+nav ul li a:hover{
+    background: rgba(255,255,255,0.30);
+}
+
+.signup-btn{
+    background:white;
+    color:#2563eb !important;
+    font-weight:bold;
+    border-radius:6px;
+    padding:10px 20px;
+}
+
+.signup-btn:hover{
+    background:#e5e7eb;
 }
 
 .hero {
