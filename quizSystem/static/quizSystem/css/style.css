@@ -27,7 +27,13 @@ nav h1 a {
 nav ul {
     list-style: none;
     display: flex;
+    align-items: center;
     gap: 20px;
+}
+
+nav ul li{
+    display:flex;
+    align-items:center;
 }
 
 nav ul li a{
@@ -53,6 +59,75 @@ nav ul li a:hover{
 
 .signup-btn:hover{
     background:#e5e7eb;
+}
+
+.profile-btn{
+    width:42px;
+    height:42px;
+    background:white;
+    color:#2563eb;
+    border-radius:10px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:20px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.3s;
+    user-select:none;
+}
+
+.profile-btn:hover{
+    background:#e5e7eb;
+    transform:scale(1.05);
+}
+
+.profile-menu{
+    position:relative;
+}
+
+.dropdown{
+    position:absolute;
+    top:55px;
+    right:0;
+    width:220px;
+    background:white;
+    border-radius:10px;
+    box-shadow:0 10px 25px rgba(0,0,0,.15);
+    overflow:hidden;
+
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(10px);
+
+    transition:.3s;
+}
+
+.dropdown.show{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0);
+}
+
+.user-name{
+    padding:15px;
+    font-weight:bold;
+    color:#2563eb;
+    border-bottom:1px solid #eee;
+}
+
+.dropdown a{
+    display:block;
+    padding:14px 18px;
+    text-decoration:none;
+    color:#333;
+    background:white;
+    transition:.3s;
+}
+
+.dropdown a:hover{
+    background:#f4f6f9;
+    color:#2563eb;
 }
 
 .hero {
