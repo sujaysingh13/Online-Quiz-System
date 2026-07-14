@@ -215,3 +215,79 @@ def save_user(request):
         return redirect('user_login')
 
     return render(request, 'quizSystem/signup.html')
+
+
+@login_required
+def profile(request):
+
+    if request.method == "POST":
+
+        fullname = request.POST.get("fullname", "").strip()
+        username = request.POST.get("username", "").strip()
+        email = request.POST.get("email", "").strip()
+
+        if not fullname:
+
+            messages.error(
+                request,
+                "Full Name cannot be empty."
+            )
+
+            return redirect("profile")
+
+
+        if not username:
+
+            messages.error(
+                request,
+                "Username cannot be empty."
+            )
+
+            return redirect("profile")
+
+
+        if not email:
+
+            messages.error(
+                request,
+                "Email cannot be empty."
+            )
+
+            return redirect("profile")
+
+        # Check if username already exists
+        if User.objects.filter(username=username).exclude(id=request.user.id).exists():
+
+            messages.error(
+                request,
+                "Username is already taken."
+            )
+
+            return redirect("profile")
+
+        # Check if email already exists
+        if User.objects.filter(email=email).exclude(id=request.user.id).exists():
+
+            messages.error(
+                request,
+                "Email is already registered."
+            )
+
+            return redirect("profile")
+
+        request.user.first_name = fullname
+        request.user.username = username
+        request.user.email = email
+
+        request.user.save()
+
+        messages.success(
+            request,
+            "Profile updated successfully."
+        )
+
+        return redirect("profile")
+
+    return render(
+        request,
+        "quizSystem/profile.html")

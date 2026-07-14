@@ -28,4 +28,5 @@ urlpatterns = [
     path('save_user/', views.save_user, name='save_user'),
     path('tests/', views.tests, name='tests'),
     path('test/<int:test_id>/', views.start_test, name='start_test'),
+    path("profile/", views.profile, name="profile"),
 ]
