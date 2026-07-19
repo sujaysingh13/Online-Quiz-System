@@ -154,7 +154,7 @@ def start_test(request, test_id):
 
                 correct_answers += 1
 
-        Result.objects.create(
+        result = Result.objects.create(
 
             student=request.user,
 
@@ -168,14 +168,12 @@ def start_test(request, test_id):
 
         )
 
-        messages.success(
-            request,
-            f"You scored {score} out of {test.total_marks}."
-        )
-
         request.session.pop("question_ids", None)
 
-        return redirect("dashboard")
+        return redirect(
+            "result_page",
+            result_id=result.id
+        )
 
     return render(
         request,
@@ -294,7 +292,6 @@ def profile(request):
         "quizSystem/profile.html")
 
 
-
 @login_required
 def change_password(request):
 
@@ -364,4 +361,42 @@ def change_password(request):
     return render(
         request,
         "quizSystem/change_password.html"
+    )
+
+
+@login_required
+def result_page(request, result_id):
+
+    result = get_object_or_404(
+        Result,
+        id=result_id,
+        student=request.user
+    )
+
+    percentage = (
+        result.score / result.total_marks
+    ) * 100
+
+    wrong_answers = (
+        result.test.number_of_questions
+        - result.correct_answers
+    )
+
+    if percentage >= 40:
+
+        status = "PASS"
+
+    else:
+
+        status = "FAIL"
+
+    return render(
+        request,
+        "quizSystem/result.html",
+        {
+            "result": result,
+            "percentage": percentage,
+            "wrong_answers": wrong_answers,
+            "status": status
+        }
     )

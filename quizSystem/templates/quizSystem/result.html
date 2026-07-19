@@ -1,0 +1,108 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Quiz Result</title>
+
+    <link rel="stylesheet"
+          href="{% static 'quizSystem/css/result.css' %}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🎉 Test Submitted Successfully</h1>
+
+    <div class="card">
+
+        <h2>{{ result.test.subject }}</h2>
+
+        <h3>{{ result.test.title }}</h3>
+
+        <div class="result-grid">
+
+            <div class="result-box">
+
+                <span>Score</span>
+
+                <strong>{{ result.score }}/{{ result.total_marks }}</strong>
+
+            </div>
+
+            <div class="result-box">
+
+                <span>Percentage</span>
+
+                <strong>{{ percentage|floatformat:2 }}%</strong>
+
+            </div>
+
+            <div class="result-box">
+
+                <span>Correct Answers</span>
+
+                <strong>{{ result.correct_answers }}</strong>
+
+            </div>
+
+            <div class="result-box">
+
+                <span>Wrong Answers</span>
+
+                <strong>{{ wrong_answers }}</strong>
+
+            </div>
+
+        </div>
+
+        {% if status == "PASS" %}
+
+            <div class="status pass">
+
+                PASS ✅
+
+            </div>
+
+        {% else %}
+
+            <div class="status fail">
+
+                FAIL ❌
+
+            </div>
+
+        {% endif %}
+
+        <div class="buttons">
+
+            <a href="{% url 'dashboard' %}" class="btn">
+
+                Dashboard
+
+            </a>
+
+            <a href="{% url 'quizSystem_index' %}" class="btn secondary">
+
+                Home
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
