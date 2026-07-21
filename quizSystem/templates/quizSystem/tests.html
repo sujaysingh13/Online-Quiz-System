@@ -102,6 +102,27 @@
             color: #888;
             font-weight: bold;
         }
+
+        .message {
+            width: 90%;
+            margin: 20px auto;
+            padding: 15px;
+            border-radius: 6px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .message.error {
+            background: #fdecea;
+            color: #b71c1c;
+            border: 1px solid #f5c6cb;
+        }
+
+        .message.success {
+            background: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #c3e6cb;
+        }
     </style>
 
 </head>
@@ -118,6 +139,20 @@
 
     </nav>
 
+    {% if messages %}
+
+        {% for message in messages %}
+
+            <div class="message {{ message.tags }}">
+
+                {{ message }}
+
+            </div>
+
+        {% endfor %}
+
+    {% endif %}
+
     <div class="container">
 
         <h2>Available Tests</h2>
@@ -125,15 +160,15 @@
         <table>
 
             <tr>
-
                 <th>Title</th>
                 <th>Subject</th>
+                <th>Start Time</th>
+                <th>End Time</th>
                 <th>Duration</th>
                 <th>Questions</th>
                 <th>Total Marks</th>
                 <th>Status</th>
                 <th>Action</th>
-
             </tr>
 
             {% for test in tests %}
@@ -143,6 +178,10 @@
                 <td>{{ test.title }}</td>
 
                 <td>{{ test.subject }}</td>
+
+                <td>{{ test.start_time|date:"d M Y, h:i A" }}</td>
+
+                <td>{{ test.end_time|date:"d M Y, h:i A" }}</td>
 
                 <td>{{ test.duration }} Minutes</td>
 

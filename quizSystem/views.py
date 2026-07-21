@@ -105,7 +105,7 @@ def start_test(request, test_id):
 
         messages.error(
             request,
-            "You have already attempted this test."
+            "You have already attempted this test. Only one attempt is allowed."
         )
 
         return redirect("tests")
